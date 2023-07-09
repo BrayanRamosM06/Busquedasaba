@@ -11,7 +11,12 @@
 
     
 
-    $query = "SELECT sku, sap, descripcion, barra FROM codigosopls WHERe sku like '%$search_criterial%'";
+    $query = "SELECT sku, sap, descripcion, barra FROM codigosopls WHERe sku 
+    like '%$search_criterial%' OR
+    sap LIKE '%$search_criterial%' OR
+    descripcion LIKE '%$search_criterial%' OR
+    barra LIKE '%$search_criterial%'
+    ";
 
     $codigos = [];
 

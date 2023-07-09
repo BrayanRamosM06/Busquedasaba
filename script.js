@@ -27,7 +27,7 @@
                 body: searchData
             })
 
-            console.log(response.ok)
+            
           
             return response.json()
 
@@ -44,7 +44,28 @@
     const showResult = () =>{
         searchData()
         .then(Result =>{
-            console.log(Result)
+            
+            tableContainer.innerHTML = ''
+            if(typeof Result.data !=='undefined' && !Result.data){ 
+                contentError.style.display = 'block'
+                contentError.querySelector('p').innerHTML =`No se encontro el registro: <span class= "bold">${search_criterial}</span>`
+                contetResul.style.display = 'none'
+            }else{
+                contetResul.style.display = 'block'
+                contentError.style.display = 'none'
+                for(const datos of Result){
+                    const row = document.createElement('tr')
+                    row.innerHTML = `
+                    <td>${datos.sku.toUpperCase().replace(search_criterial, '<span class = "bold">$&</span>')}</td>
+                    <td>${datos.sap.toUpperCase().replace(search_criterial, '<span class = "bold">$&</span>')}</td>
+                    <td>${datos.descripcion.toUpperCase().replace(search_criterial, '<span class = "bold">$&</span>')}</td>
+                    <td>${datos.barra.toUpperCase().replace(search_criterial, '<span class = "bold">$&</span>')}</td>`
+
+                    tableContainer.appendChild(row)
+                }        
+            }
         })
     }
+    
+    showResult()
 })
