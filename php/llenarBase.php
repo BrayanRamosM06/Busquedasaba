@@ -13,17 +13,33 @@ foreach ($patch as $lineass) {
     $descripcion = ($lineas[2]);
     $barra   = ($lineas[3]);
 
-    $Existe = "SELECT *FROM codigosaba  WHERE sku='$sku'";
-    $verificar = mysqli_query($db,$Existe);
-   
-
-    $existeCount = mysqli_num_rows($verificar);
+    $Existe = $db->query("SELECT *FROM codigosaba  WHERE sku='$sku'");
 
 
+    if ($Existe->){
+        $update = $db->prepare("UPDATE  codigosaba SET sku = ?, sap = ? ,descripcion =? ,barra =?  WHERE sku = '$sku'");
+        $update->bindParam(1, $sku);
+        $update->bindParam(2, $sap);
+        $update->bindParam(3, $descripcion);
+        $update->bindParam(4, $barra);
+        $update->execute();
+        echo ("Registro actulizado corretamente");
+        echo "<br>";
 
+    }else{
+        $insert = $db->prepare("INSERT INTO codigosaba (sku, sap, descripcion, barra) VALUES (?,?,?,?) ");
+        $insert->bindParam(1,$sku);
+        $insert->bindParam(2,$sap);
+        $insert->bindParam(3,$descripcion);
+        $insert->bindParam(4,$barra);
+        $insert->execute();
+
+            echo("registro insertado correctamente");
+            echo "<br>";
+
+    }
   
 }
-$db->close();  
 
 
 
