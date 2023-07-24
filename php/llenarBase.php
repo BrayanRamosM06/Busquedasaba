@@ -19,29 +19,7 @@ foreach ($patch as $lineass) {
 
     $existeCount = mysqli_num_rows($verificar);
 
- 
-    if($existeCount > 0){
-        echo($existeCount);
-        echo "<br>";
-        $updata = "UPDATE  codigosaba SET sku = '$sku', sap = '$sap',descripcion = '$descripcion',barra = '$barra' WHERE sku = '$sku'";
-         echo ($sku);
-         echo "<br>";
-         mysqli_query($db, $updata);
 
-    }else{  
-        echo($existeCount);
-        echo "<br>";
-        echo ($sku);
-        echo "<br>";
-        $insert = "INSERT INTO  codigosaba (sku,sap,descripcion,barra) VALUES ('$sku','$sap','$descripcion','$barra')";
-      
-        if (mysqli_query($db,$insert)) {
-            echo("Registrado correctamente");    
-            
-        }else{
-            echo "Error al insertar". $insert."<br>". mysqli_error($db);
-        }
-    }
 
   
 }
