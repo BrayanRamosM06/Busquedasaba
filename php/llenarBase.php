@@ -4,6 +4,8 @@ include ('dataBase.php');
 
 $patch = file('../sabacodigos.csv');
 
+mysqli_set_charset($db,"utf8");
+
 
 foreach ($patch as $lineass) {
     $lineas = explode(";", $lineass);
@@ -13,35 +15,28 @@ foreach ($patch as $lineass) {
     $descripcion = ($lineas[2]);
     $barra   = ($lineas[3]);
 
-    $Existe = $db->query("SELECT *FROM codigosaba  WHERE sku='$sku'");
-
-
-    if ($Existe->){
-        $update = $db->prepare("UPDATE  codigosaba SET sku = ?, sap = ? ,descripcion =? ,barra =?  WHERE sku = '$sku'");
-        $update->bindParam(1, $sku);
-        $update->bindParam(2, $sap);
-        $update->bindParam(3, $descripcion);
-        $update->bindParam(4, $barra);
-        $update->execute();
-        echo ("Registro actulizado corretamente");
-        echo "<br>";
+    $sql= "SELECT *FROM codigosaba  WHERE sku=?";
+    $stmt = mysqli_prepare($db, $sql);
+    mysqli_stmt_bind_param($stmt,"s", $sku);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    
+    if(mysqli_num_rows($result) >0){
+        
+        $update = $db->prepare("UPDATE  codigosaba SET sku = ?, sap = ? ,descripcion =? ,barra =?  WHERE sku = $sku");
+        $stmt = mysqli_prepare($db, $update);
+        mysqli_stmt_bind_param($stmt, "ssss", $sku, $sap, $descripcion, $barra);
+        mysqli_stmt_execute($stmt);
 
     }else{
+        
         $insert = $db->prepare("INSERT INTO codigosaba (sku, sap, descripcion, barra) VALUES (?,?,?,?) ");
-        $insert->bindParam(1,$sku);
-        $insert->bindParam(2,$sap);
-        $insert->bindParam(3,$descripcion);
-        $insert->bindParam(4,$barra);
-        $insert->execute();
-
-            echo("registro insertado correctamente");
-            echo "<br>";
-
-    }
+        $stmt = mysqli_prepare($db,$insert);
+        mysqli_stmt_bind_param($stmt, "ssss", $sku,$sap, $descripcion, $barra);
+        mysqli_stmt_execute($stmt);
+    }    
   
 }
-
-
-
+mysqli_close($db);
 
 ?>
