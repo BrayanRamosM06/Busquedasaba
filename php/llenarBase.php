@@ -17,22 +17,24 @@ foreach ($patch as $lineass) {
 
     $sql= "SELECT *FROM codigosaba  WHERE sku=?";
     $stmt = mysqli_prepare($db, $sql);
-    mysqli_stmt_bind_param($stmt,"s", $sku);
+    mysqli_stmt_bind_param($stmt,'s', $sku);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     
     if(mysqli_num_rows($result) >0){
         
-        $update = $db->prepare("UPDATE  codigosaba SET sku = ?, sap = ? ,descripcion =? ,barra =?  WHERE sku = $sku");
-        $stmt = mysqli_prepare($db, $update);
-        mysqli_stmt_bind_param($stmt, "ssss", $sku, $sap, $descripcion, $barra);
+        
+        $stmt =mysqli_prepare($db,"UPDATE  codigosaba SET sku = ?, sap = ? ,descripcion = ? ,barra = ?  WHERE sku = $sku");
+        mysqli_stmt_bind_param($stmt,'ssss', $sku, $sap, $descripcion, $barra);
         mysqli_stmt_execute($stmt);
-
+        $stmt->close();
+        // $stmt = $db-> mysqli_prepare($update);
+        
     }else{
         
-        $insert = $db->prepare("INSERT INTO codigosaba (sku, sap, descripcion, barra) VALUES (?,?,?,?) ");
-        $stmt = mysqli_prepare($db,$insert);
-        mysqli_stmt_bind_param($stmt, "ssss", $sku,$sap, $descripcion, $barra);
+        $query ="INSERT INTO codigosaba (sku, sap, descripcion, barra) VALUES (?,?,?,?) ";
+        $stmt = mysqli_prepare($db,$query);
+        mysqli_stmt_bind_param($stmt, 'ssss', $sku,$sap, $descripcion, $barra);
         mysqli_stmt_execute($stmt);
     }    
   
