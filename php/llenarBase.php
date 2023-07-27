@@ -36,6 +36,13 @@ foreach ($patch as $lineass) {
         $stmt = mysqli_prepare($db,$query);
         mysqli_stmt_bind_param($stmt, 'ssss', $sku,$sap, $descripcion, $barra);
         mysqli_stmt_execute($stmt);
+
+        if (mysqli_query($db,$query)) {
+            echo("Registrado correctamente");    
+            
+        }else{
+            echo "Error al insertar". $insert."<br>". mysqli_error($db);
+        }
     }    
   
 }
