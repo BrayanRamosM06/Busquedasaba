@@ -3,27 +3,17 @@
     padding: 0;
     box-sizing: border-box;
 }
-body{
-    min-width: 100vh;
-    background: #0c192c;
-    
-}
-.fondo{
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    background-image: url(../img/descarga.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size:cover;
-    opacity: 0.1; 
-}
+
+
 .text{
-    position: absolute;
-    color: aliceblue;
-    text-align: center;
-    padding-left: 35rem;
-    margin-top: 5rem;
+    margin-top: 25px;
+    margin-left: 50px;
+    width: 395px;
+    text-align:center;
+    padding: 20px 20px 30px 20px;
+    background: rgba(129, 129, 129, 0.3);
+    z-index: 0;
+
 }
 
 .container{
@@ -31,6 +21,11 @@ body{
     width: 100%;
     height:100vh;
     overflow: hidden;
+
+    background: linear-gradient(rgba(5,7,12, 0.99),
+    rgba(5, 7, 12, 0.70)), url(../img/descarga.jpg)
+   no-repeat center center fixed;
+   background-size:cover;
 }
 
 .bubbless{
