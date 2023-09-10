@@ -1,0 +1,11 @@
+{
+    "configurations": [
+    
+        {
+            "type": "chrome",
+            "name": "http://errorsContainer",
+            "request": "launch",
+            "url": "http://errorsContainer"
+        }
+    ]
+}

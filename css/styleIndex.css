@@ -1,0 +1,71 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.text{
+    margin-top: 25px;
+    margin-left: 50px;
+    width: 395px;
+    text-align:center;
+    padding: 20px 20px 30px 20px;
+    background: rgba(129, 129, 129, 0.3);
+    z-index: 0;
+
+}
+
+.container{
+    position: relative;
+    width: 100%;
+    height:100vh;
+    overflow: hidden;
+
+    background: linear-gradient(rgba(5,7,12, 0.99),
+    rgba(5, 7, 12, 0.70)), url(../img/descarga.jpg)
+   no-repeat center center fixed;
+   background-size:cover;
+}
+
+.bubbless{
+     position: relative;
+     display: flex;
+}
+
+.bubbless span{
+     position: relative;
+     width: 30px;
+     height: 30px;
+     background: #4fc3dc;
+     margin: 0 4px;
+     border-radius:50%;
+     box-shadow: 0 0 0 10px #4fc3dc44,
+     0 0 50px #4fc3dc,
+     0 0 100px #4fc3dc;
+     animation: animate 15s linear infinite;
+     animation-duration: calc(125s / var(--i));
+}
+
+.bubbless span:nth-child(even){
+    background: #ff2d75;
+    box-shadow:0 0 0 10px #ff2d7544,
+    0 0 50px #ff2d75,
+    0 0 100px #ff2d75;
+}
+
+@keyframes animate{
+    0%{
+        transform: translateY(100vh) scale(0); 
+    }
+    100%{
+        transform: translateY(-10vh) scale(1);
+    }
+
+}
+
+
+
+
+
+
